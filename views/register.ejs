@@ -8,6 +8,13 @@
     <div class="container">
       <%- include navbar %>
       <h2 align="center">Create Member</h2>
+      <% if(locals.errors){ %>
+        <ul class="alert alert-danger">
+        <% Object.values(errors).forEach(function(error){%>
+          <li><%= error.msg %></li>
+        <%})%>
+        </ul>
+      <%}%>
       <form class="form-group" action="/users/register" method="post">
         <div class="form-group">
           <label for="">Username:</label>

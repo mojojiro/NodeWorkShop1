@@ -6,11 +6,16 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-message": "*",
+    "express-validator": "*",
     "http-errors": "~1.6.3",
+    "mongod": "*",
+    "mongoose": "*",
     "morgan": "~1.9.1"
   }
 }
