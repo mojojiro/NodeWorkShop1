@@ -7,6 +7,7 @@
   <body>
     <div class="container">
       <%- include navbar %>
+      <%- messages() %>
       <h2 align="center">Login Form</h2>
       <form class="form-group" action="/users/login" method="post">
         <div class="form-group">
@@ -21,4 +22,7 @@
       </form>
     </div>
   </body>
+  <script type="text/javascript">
+      $('#messages').addClass("alert alert-danger");
+  </script>
 </html>

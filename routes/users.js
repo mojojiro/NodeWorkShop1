@@ -3,6 +3,9 @@ var express = require('express');
 var router = express.Router();
 var User=require('../model/user');
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 const{
   check,
   validationResult
@@ -45,10 +48,6 @@ router.post('/register',[
     });
     res.location('/');
     res.redirect('/');
-
-    // console.log(req.body.name);
-    // console.log(req.body.email);
-    // console.log(req.body.password);
   }
 
 });
@@ -57,9 +56,50 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
-router.post('/login', function(req, res, next) {
-  console.log(req.body.username);
-  console.log(req.body.password);
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/users/login');
 });
+
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/users/login',
+    failureFlash: false
+  }),
+  function(req, res) {
+        req.flash("success", "ลงชื่อเข้าใช้เรียบร้อยแล้ว");
+        res.redirect('/');
+});
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(function(username, password, done) {
+  User.getUserByName(username, function(err, user) {
+    if (err) throw error;
+    //console.log(user);
+    if (!user) {
+        return done(null, false);
+    }else{
+        return done(null, user);
+    }
+
+    User.comparePassword(password, user.password, function(err, isMatch) {
+      if (err) return err;
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
+  });
+}));
 
 module.exports = router;

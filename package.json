@@ -7,15 +7,21 @@
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "connect-flash": "*",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-message": "*",
+    "express-messages": "^1.0.1",
+    "express-session": "*",
     "express-validator": "*",
     "http-errors": "~1.6.3",
     "mongod": "*",
     "mongoose": "*",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
   }
 }
